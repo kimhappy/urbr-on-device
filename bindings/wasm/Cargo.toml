@@ -7,7 +7,7 @@ edition = "2021"
 opt-level     = 3
 strip         = "symbols"
 lto           = true
-panic         = 'abort'
+panic         = "abort"
 codegen-units = 1
 rpath         = false
 
