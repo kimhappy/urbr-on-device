@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 use std::collections::VecDeque;
-use js_sys::{ wasm_bindgen, Float64Array };
+use js_sys::{ wasm_bindgen, Float32Array };
 use js_sys::wasm_bindgen::prelude::wasm_bindgen;
 use urbr::{ Layer, LSTM };
 
@@ -11,7 +11,7 @@ const LB : usize =  10;
 
 #[wasm_bindgen]
 struct UrbrFront {
-    prev: VecDeque< [f64; DIM] >,
+    prev: VecDeque< [f32; DIM] >,
     lstm: LSTM    < DIM, HID   >,
 }
 
@@ -31,12 +31,12 @@ impl UrbrFront {
     }
 
     #[wasm_bindgen]
-    pub fn out_buffer() -> Float64Array {
-        Float64Array::new_with_length(100)
+    pub fn out_buffer() -> Float32Array {
+        Float32Array::new_with_length(100)
     }
 
     #[wasm_bindgen]
-    pub fn inference(&mut self, alt: f64, lat: f64, dest: &Float64Array) {
+    pub fn inference(&mut self, alt: f32, lat: f32, dest: &Float32Array) {
         if self.prev.is_empty() {
            self.prev.extend(std::iter::repeat([alt, lat]).take(LB));
         }

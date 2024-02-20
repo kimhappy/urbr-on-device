@@ -5,11 +5,11 @@ pub struct Dense<
     const OUT: usize,
 > {
     // Parameters
-    weight_: [[f64; OUT]; IN],
-    bias_  :  [f64; OUT]     ,
+    weight_: [[f32; OUT]; IN],
+    bias_  :  [f32; OUT]     ,
 
     // Outputs
-    out_   :  [f64; OUT]     ,
+    out_   :  [f32; OUT]     ,
 }
 
 impl<
@@ -28,12 +28,12 @@ impl<
 impl<
     const IN : usize,
     const OUT: usize,
-> Layer< [f64; IN] > for Dense< IN, OUT > {
+> Layer< [f32; IN] > for Dense< IN, OUT > {
     const NUM_PARAMETERS: usize = OUT * (IN + 1);
 
-    type OUT = [f64; OUT];
+    type OUT = [f32; OUT];
 
-    fn load(&mut self, parameter: &[f64]) {
+    fn load(&mut self, parameter: &[f32]) {
         let mut loader = Loader::new(parameter);
 
         loader.load(&mut self.weight_);
@@ -44,7 +44,7 @@ impl<
         &self.out_
     }
 
-    fn forward(&mut self, input: &[f64; IN]) {
+    fn forward(&mut self, input: &[f32; IN]) {
         for i in 0..OUT {
             self.out_[ i ] = self.bias_[ i ];
 

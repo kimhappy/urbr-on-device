@@ -14,7 +14,7 @@ pub struct Urbr<
     const SEQ: usize > where
     [(); IO  * 4]:,
     [(); VIA * 4]: {
-    prev : Vec  < f64      >,
+    prev : Vec  < f32      >,
     lstm : LSTM < IO , VIA >,
     dense: Dense< VIA, IO  >
 }

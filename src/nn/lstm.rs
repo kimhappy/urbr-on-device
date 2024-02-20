@@ -7,14 +7,14 @@ pub struct LSTM<
     [(); IN  * 4]:,
     [(); OUT * 4]:, {
     // Parameters: i, f, g, o
-    weight_i_: [[[f64; 4]; IN ]; OUT],
-    weight_h_: [[[f64; 4]; OUT]; OUT],
-    bias_    :  [[f64; 4]; OUT]      , // Pre-calculated bias_i + bias_h
+    weight_i_: [[[f32; 4]; IN ]; OUT],
+    weight_h_: [[[f32; 4]; OUT]; OUT],
+    bias_    :  [[f32; 4]; OUT]      , // Pre-calculated bias_i + bias_h
 
     // States (and outputs)
-    o_       :  [ f64;     OUT]      ,
-    c_       :  [ f64;     OUT]      ,
-    h_       :  [ f64;     OUT]      ,
+    o_       :  [ f32;     OUT]      ,
+    c_       :  [ f32;     OUT]      ,
+    h_       :  [ f32;     OUT]      ,
 }
 
 impl<
@@ -38,31 +38,31 @@ impl<
 impl<
     const IN : usize,
     const OUT: usize,
-> Layer< [f64; IN] > for LSTM< IN, OUT > where
+> Layer< [f32; IN] > for LSTM< IN, OUT > where
     [(); IN  * 4]:,
     [(); OUT * 4]: {
-    type OUT = [f64; OUT];
+    type OUT = [f32; OUT];
 
     const NUM_PARAMETERS: usize = 4 * OUT * (IN + OUT + 1);
 
-    fn load(&mut self, parameter: &[f64]) {
+    fn load(&mut self, parameter: &[f32]) {
         let mut loader                        = Loader::new(parameter)              ;
-        let mut weight_i_i: [[f64; IN ]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_i_f: [[f64; IN ]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_i_g: [[f64; IN ]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_i_o: [[f64; IN ]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_h_i: [[f64; OUT]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_h_f: [[f64; OUT]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_h_g: [[f64; OUT]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_h_o: [[f64; OUT]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut bias_i_i_ :  [f64; OUT]       = unsafe { std::mem::uninitialized() };
-        let mut bias_i_f_ :  [f64; OUT]       = unsafe { std::mem::uninitialized() };
-        let mut bias_i_g_ :  [f64; OUT]       = unsafe { std::mem::uninitialized() };
-        let mut bias_i_o_ :  [f64; OUT]       = unsafe { std::mem::uninitialized() };
-        let mut bias_h_i_ :  [f64; OUT]       = unsafe { std::mem::uninitialized() };
-        let mut bias_h_f_ :  [f64; OUT]       = unsafe { std::mem::uninitialized() };
-        let mut bias_h_g_ :  [f64; OUT]       = unsafe { std::mem::uninitialized() };
-        let mut bias_h_o_ :  [f64; OUT]       = unsafe { std::mem::uninitialized() };
+        let mut weight_i_i: [[f32; IN ]; OUT] = unsafe { std::mem::uninitialized() };
+        let mut weight_i_f: [[f32; IN ]; OUT] = unsafe { std::mem::uninitialized() };
+        let mut weight_i_g: [[f32; IN ]; OUT] = unsafe { std::mem::uninitialized() };
+        let mut weight_i_o: [[f32; IN ]; OUT] = unsafe { std::mem::uninitialized() };
+        let mut weight_h_i: [[f32; OUT]; OUT] = unsafe { std::mem::uninitialized() };
+        let mut weight_h_f: [[f32; OUT]; OUT] = unsafe { std::mem::uninitialized() };
+        let mut weight_h_g: [[f32; OUT]; OUT] = unsafe { std::mem::uninitialized() };
+        let mut weight_h_o: [[f32; OUT]; OUT] = unsafe { std::mem::uninitialized() };
+        let mut bias_i_i_ :  [f32; OUT]       = unsafe { std::mem::uninitialized() };
+        let mut bias_i_f_ :  [f32; OUT]       = unsafe { std::mem::uninitialized() };
+        let mut bias_i_g_ :  [f32; OUT]       = unsafe { std::mem::uninitialized() };
+        let mut bias_i_o_ :  [f32; OUT]       = unsafe { std::mem::uninitialized() };
+        let mut bias_h_i_ :  [f32; OUT]       = unsafe { std::mem::uninitialized() };
+        let mut bias_h_f_ :  [f32; OUT]       = unsafe { std::mem::uninitialized() };
+        let mut bias_h_g_ :  [f32; OUT]       = unsafe { std::mem::uninitialized() };
+        let mut bias_h_o_ :  [f32; OUT]       = unsafe { std::mem::uninitialized() };
 
         loader.load(&mut weight_i_i);
         loader.load(&mut weight_i_f);
@@ -107,7 +107,7 @@ impl<
         &self.h_
     }
 
-    fn forward(&mut self, input: &[f64; IN]) {
+    fn forward(&mut self, input: &[f32; IN]) {
         for i in 0..OUT {
             let mut acc = self.bias_[ i ];
 

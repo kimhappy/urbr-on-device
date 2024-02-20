@@ -21,7 +21,7 @@ fn front(bencher: Bencher) {
             black_box(&mut lstm).forward(black_box(al));
         }
 
-        black_box(black_box(&lstm).out().iter().sum::< f64 >());
+        black_box(black_box(&lstm).out().iter().sum::< f32 >());
     });
 }
 
@@ -39,7 +39,7 @@ fn back(bencher: Bencher) {
 
     bencher.bench_local(move || {
         black_box(&mut dense).forward(black_box(&lstm).out());
-        black_box(black_box(&dense).out().iter().sum::< f64 >());
+        black_box(black_box(&dense).out().iter().sum::< f32 >());
     });
 }
 
@@ -57,6 +57,6 @@ fn full(bencher: Bencher) {
         }
 
         black_box(&mut dense).forward(black_box(&lstm).out());
-        black_box(black_box(&dense).out().iter().sum::< f64 >());
+        black_box(black_box(&dense).out().iter().sum::< f32 >());
     });
 }
