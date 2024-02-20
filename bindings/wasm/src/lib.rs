@@ -36,6 +36,11 @@ impl UrbrFront {
     }
 
     #[wasm_bindgen]
+    pub fn load(&mut self, parameters: &Float32Array) {
+        self.lstm.load(&parameters.to_vec());
+    }
+
+    #[wasm_bindgen]
     pub fn inference(&mut self, alt: f32, lat: f32, dest: &Float32Array) {
         if self.prev.is_empty() {
            self.prev.extend(std::iter::repeat([alt, lat]).take(LB));
