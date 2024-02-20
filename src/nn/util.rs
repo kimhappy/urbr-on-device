@@ -34,3 +34,7 @@ impl< T: Copy, const N: usize, const M: usize > Loadable< T > for [[T; N]; M] {
         self.iter_mut().for_each(|row| row.load(loader));
     }
 }
+
+pub fn sigmoid< F: One + Float >(x: F) -> F {
+    (< F as One >::one() + (-x).exp()).recip()
+}
