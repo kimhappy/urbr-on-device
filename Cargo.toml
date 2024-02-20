@@ -11,5 +11,12 @@ panic         = "abort"
 codegen-units = 1
 rpath         = false
 
+[[bench]]
+name    = "benchmark"
+harness = false
+
+[dev-dependencies]
+divan = "0.1.14"
+
 [dependencies]
 num-traits = "^0.2.18"

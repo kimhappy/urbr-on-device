@@ -9,6 +9,11 @@
 cargo test
 ```
 
+## Run Benchmark
+```sh
+cargo bench
+```
+
 ## Build WASM (Front)
 ```sh
 cd bindings/wasm
