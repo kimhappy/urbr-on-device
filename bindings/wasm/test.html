@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>urbr example</title>
+  </head>
+  <body>
+    <script type="module">
+      import init, { UrbrFront } from './pkg/urbr_wasm.js'
+
+      init().then(() => {
+        const urbr           = new UrbrFront           ();
+        const num_parameters = UrbrFront.num_parameters();
+        const output         = UrbrFront.out_buffer    ();
+
+        console.log(urbr          );
+        console.log(num_parameters);
+        console.log(output        );
+      });
+    </script>
+  </body>
+</html>

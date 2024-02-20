@@ -1,0 +1,19 @@
+[package]
+name    = "urbr_wasm"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+opt-level     = 'z'
+strip         = "symbols"
+lto           = true
+panic         = 'abort'
+codegen-units = 1
+rpath         = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+js-sys = "^0.3.68"
+urbr   = { path = "../../" }
