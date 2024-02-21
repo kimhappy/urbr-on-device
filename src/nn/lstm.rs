@@ -43,7 +43,7 @@ impl<
     [(); OUT * 4]: {
     type OUT = [f32; OUT];
 
-    const NUM_PARAMETERS: usize = 4 * OUT * (IN + OUT + 1);
+    const NUM_PARAMETERS: usize = 4 * OUT * (IN + OUT + 2);
 
     fn load(&mut self, parameter: &[f32]) {
         let mut loader                        = Loader::new(parameter)              ;

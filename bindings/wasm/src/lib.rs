@@ -26,7 +26,7 @@ impl UrbrFront {
             front: Front::new()
         };
 
-        // ret.front.load(&FRONT_PARAMETERS);
+        ret.front.load(&FRONT_PARAMETERS);
         ret
     }
 
