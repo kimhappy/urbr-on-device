@@ -3,13 +3,13 @@
 use std::collections::VecDeque;
 use js_sys::{ wasm_bindgen, Float32Array };
 use js_sys::wasm_bindgen::prelude::wasm_bindgen;
-use urbr::{ Front, Preprocess, Layer, LOOK_BACK, SCALER_DATA_MIN, SCALER_DATA_MAX, SCALER_TARGET_MIN, SCALER_TARGET_MAX, FRONT_PARAMETERS };
+use urbr::{ DIM, HIDDEN, Front, Preprocess, Layer, LOOK_BACK, SCALER_DATA_MIN, SCALER_DATA_MAX, SCALER_TARGET_MIN, SCALER_TARGET_MAX, FRONT_PARAMETERS };
 
 #[wasm_bindgen]
 struct UrbrFront {
-    prev      : VecDeque< [f32; 2] >,
-    preprocess: Preprocess          ,
-    front     : Front               ,
+    prev      : VecDeque< [f32; DIM] >,
+    preprocess: Preprocess            ,
+    front     : Front                 ,
 }
 
 #[wasm_bindgen]
@@ -32,7 +32,7 @@ impl UrbrFront {
 
     #[wasm_bindgen]
     pub fn out_buffer() -> Float32Array {
-        Float32Array::new_with_length(100)
+        Float32Array::new_with_length(HIDDEN as u32)
     }
 
     #[wasm_bindgen]

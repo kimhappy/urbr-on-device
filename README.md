@@ -20,7 +20,8 @@ cd bindings/wasm
 wasm-pack build --target web --release
 ```
 
-## Build Go (Back, not yet)
+## Build Go (Back)
 ```sh
-blahblah...
+cd bindings/go
+cargo build --release
 ```

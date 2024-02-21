@@ -1,0 +1,19 @@
+[package]
+name    = "urbr_go"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+opt-level     = 3
+strip         = "symbols"
+lto           = true
+panic         = "abort"
+codegen-units = 1
+rpath         = false
+
+[lib]
+name = "urbr_go"
+crate-type = ["cdylib"]
+
+[dependencies]
+urbr   = { path = "../../" }

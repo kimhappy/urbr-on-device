@@ -14,8 +14,8 @@ use scaler::Scaler;
 pub use nn::Layer;
 pub use data::*;
 
-const DIM   : usize =   2;
-const HIDDEN: usize = 100;
+pub const DIM   : usize =   2;
+pub const HIDDEN: usize = 100;
 
 pub type Front      = LSTM  < DIM   , HIDDEN >;
 pub type Back       = Dense < HIDDEN, DIM    >;
