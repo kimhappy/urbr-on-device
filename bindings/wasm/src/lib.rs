@@ -26,7 +26,7 @@ impl UrbrFront {
             front: Front::new()
         };
 
-        ret.front.load(&FRONT_PARAMETERS);
+        // ret.front.load(&FRONT_PARAMETERS);
         ret
     }
 
@@ -36,9 +36,9 @@ impl UrbrFront {
     }
 
     #[wasm_bindgen]
-    pub fn inference(&mut self, alt: f32, lat: f32, dest: &Float32Array) {
+    pub fn inference(&mut self, a: f32, b: f32, dest: &Float32Array) {
         // TODO: Inference
-        // let scaled = self.preprocess.transform([alt, lat]);
+        // let scaled = self.preprocess.transform([a, b]);
 
         // if self.prev.is_empty() {
         //    self.prev.extend(std::iter::repeat(scaled).take(LOOK_BACK));
@@ -55,7 +55,7 @@ impl UrbrFront {
         // dest.copy_from(self.front.out());
 
         // for test
-        dest.set_index(0, alt);
-        dest.set_index(1, lat);
+        dest.set_index(0, a);
+        dest.set_index(1, b);
     }
 }
