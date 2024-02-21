@@ -3,30 +3,23 @@
 #![allow(incomplete_features)]
 #![allow(deprecated)]
 #![feature(generic_const_exprs)]
+#![feature(associated_type_defaults)]
 
 mod nn;
+mod scaler;
+mod data;
 
-pub use nn::{ Layer, LSTM, Dense };
+use nn::{ LSTM, Dense };
+use scaler::Scaler;
+pub use nn::Layer;
+pub use data::*;
 
-pub struct Urbr<
-    const IO : usize,
-    const VIA: usize,
-    const SEQ: usize > where
-    [(); IO  * 4]:,
-    [(); VIA * 4]: {
-    prev : Vec  < f32      >,
-    lstm : LSTM < IO , VIA >,
-    dense: Dense< VIA, IO  >
-}
+const DIM   : usize =   2;
+const HIDDEN: usize = 100;
 
-impl<
-    const IO : usize,
-    const VIA: usize,
-    const SEQ: usize > Urbr< IO, VIA, SEQ > where
-    [(); IO  * 4]:,
-    [(); VIA * 4]: {
-    // TODO: Implement
-}
+pub type Front      = LSTM  < DIM   , HIDDEN >;
+pub type Back       = Dense < HIDDEN, DIM    >;
+pub type Preprocess = Scaler< DIM            >;
 
 #[cfg(test)]
 mod tests {

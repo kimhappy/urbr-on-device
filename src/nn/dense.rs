@@ -1,4 +1,4 @@
-use super::{ Layer, util::Loader };
+use super::{ Layer, Loader };
 
 pub struct Dense<
     const IN : usize,

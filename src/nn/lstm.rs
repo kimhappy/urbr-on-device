@@ -1,4 +1,4 @@
-use super::{ Layer, util::{ Loader, sigmoid } };
+use super::{ Layer, Loader, sigmoid };
 
 pub struct LSTM<
     const IN : usize,

@@ -3,31 +3,31 @@
 use std::collections::VecDeque;
 use js_sys::{ wasm_bindgen, Float32Array };
 use js_sys::wasm_bindgen::prelude::wasm_bindgen;
-use urbr::{ Layer, LSTM };
-
-const DIM: usize =   2;
-const HID: usize = 100;
-const LB : usize =  10;
+use urbr::{ Front, Preprocess, Layer, LOOK_BACK, SCALER_DATA_MIN, SCALER_DATA_MAX, SCALER_TARGET_MIN, SCALER_TARGET_MAX, FRONT_PARAMETERS };
 
 #[wasm_bindgen]
 struct UrbrFront {
-    prev: VecDeque< [f32; DIM] >,
-    lstm: LSTM    < DIM, HID   >,
+    prev      : VecDeque< [f32; 2] >,
+    preprocess: Preprocess          ,
+    front     : Front               ,
 }
 
 #[wasm_bindgen]
 impl UrbrFront {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
-        Self {
+        let mut ret = Self {
             prev: VecDeque::new(),
-            lstm: LSTM    ::new()
-        }
-    }
+            preprocess: Preprocess {
+                data_min  : SCALER_DATA_MIN  ,
+                data_max  : SCALER_DATA_MAX  ,
+                target_min: SCALER_TARGET_MIN,
+                target_max: SCALER_TARGET_MAX, },
+            front: Front::new()
+        };
 
-    #[wasm_bindgen]
-    pub fn num_parameters() -> usize {
-        LSTM::< DIM, HID >::NUM_PARAMETERS
+        ret.front.load(&FRONT_PARAMETERS);
+        ret
     }
 
     #[wasm_bindgen]
@@ -36,24 +36,26 @@ impl UrbrFront {
     }
 
     #[wasm_bindgen]
-    pub fn load(&mut self, parameters: &Float32Array) {
-        self.lstm.load(&parameters.to_vec());
-    }
-
-    #[wasm_bindgen]
     pub fn inference(&mut self, alt: f32, lat: f32, dest: &Float32Array) {
-        if self.prev.is_empty() {
-           self.prev.extend(std::iter::repeat([alt, lat]).take(LB));
-        }
-        else {
-            self.prev.pop_front();
-            self.prev.push_back([alt, lat]);
-        }
+        // TODO: Inference
+        // let scaled = self.preprocess.transform([alt, lat]);
 
-        for al in &self.prev {
-            self.lstm.forward(al);
-        }
+        // if self.prev.is_empty() {
+        //    self.prev.extend(std::iter::repeat(scaled).take(LOOK_BACK));
+        // }
+        // else {
+        //     self.prev.pop_front();
+        //     self.prev.push_back(scaled);
+        // }
 
-        dest.copy_from(self.lstm.out());
+        // for al in &self.prev {
+        //     self.front.forward(al);
+        // }
+
+        // dest.copy_from(self.front.out());
+
+        // for test
+        dest.set_index(0, alt);
+        dest.set_index(1, lat);
     }
 }

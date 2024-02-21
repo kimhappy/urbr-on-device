@@ -1,5 +1,3 @@
-use num_traits::{ One, Float };
-
 pub struct Loader< 'a, T > {
     pub index: usize  ,
     pub data : &'a [T],
@@ -33,8 +31,4 @@ impl< T: Copy, const N: usize, const M: usize > Loadable< T > for [[T; N]; M] {
     fn load(&mut self, loader: &mut Loader< T >) {
         self.iter_mut().for_each(|row| row.load(loader));
     }
-}
-
-pub fn sigmoid< F: One + Float >(x: F) -> F {
-    (< F as One >::one() + (-x).exp()).recip()
 }

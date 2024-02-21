@@ -1,13 +1,16 @@
-mod lstm ;
+mod loader;
+mod lstm;
 mod dense;
-mod util ;
+mod sigmoid;
 
-pub use lstm ::*;
-pub use dense::*;
-pub use util ::*;
+pub use loader ::*;
+pub use lstm   ::*;
+pub use dense  ::*;
+pub use sigmoid::*;
 
 pub trait Layer< IN > {
-    type OUT;
+    type IN  = IN;
+    type OUT     ;
 
     const NUM_PARAMETERS: usize;
 
