@@ -1,3 +1,5 @@
+// TODO: Inference code
+
 #[no_mangle]
 pub extern "C" fn inference(from: *const f32, to: *mut f32) {
     let from_slice = unsafe { std::slice::from_raw_parts    (from, 100) };
