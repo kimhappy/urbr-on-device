@@ -25,12 +25,12 @@ impl<
     [(); OUT * 4]:, {
     pub fn new() -> Self {
         Self {
-            weight_i_: unsafe { std::mem::uninitialized() },
-            weight_h_: unsafe { std::mem::uninitialized() },
-            bias_    : unsafe { std::mem::uninitialized() },
-            o_       : unsafe { std::mem::uninitialized() },
-            c_       : unsafe { std::mem::uninitialized() },
-            h_       : unsafe { std::mem::uninitialized() },
+            weight_i_: [[[0.0; 4]; IN ]; OUT],
+            weight_h_: [[[0.0; 4]; OUT]; OUT],
+            bias_    : [ [0.0; 4]      ; OUT],
+            o_       : [  0.0          ; OUT],
+            c_       : [  0.0          ; OUT],
+            h_       : [  0.0          ; OUT],
         }
     }
 }
@@ -46,23 +46,23 @@ impl<
     const NUM_PARAMETERS: usize = 4 * OUT * (IN + OUT + 2);
 
     fn load(&mut self, parameter: &[f32]) {
-        let mut loader                        = Loader::new(parameter)              ;
-        let mut weight_i_i: [[f32; IN ]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_i_f: [[f32; IN ]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_i_g: [[f32; IN ]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_i_o: [[f32; IN ]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_h_i: [[f32; OUT]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_h_f: [[f32; OUT]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_h_g: [[f32; OUT]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut weight_h_o: [[f32; OUT]; OUT] = unsafe { std::mem::uninitialized() };
-        let mut bias_i_i_ : [ f32      ; OUT] = unsafe { std::mem::uninitialized() };
-        let mut bias_i_f_ : [ f32      ; OUT] = unsafe { std::mem::uninitialized() };
-        let mut bias_i_g_ : [ f32      ; OUT] = unsafe { std::mem::uninitialized() };
-        let mut bias_i_o_ : [ f32      ; OUT] = unsafe { std::mem::uninitialized() };
-        let mut bias_h_i_ : [ f32      ; OUT] = unsafe { std::mem::uninitialized() };
-        let mut bias_h_f_ : [ f32      ; OUT] = unsafe { std::mem::uninitialized() };
-        let mut bias_h_g_ : [ f32      ; OUT] = unsafe { std::mem::uninitialized() };
-        let mut bias_h_o_ : [ f32      ; OUT] = unsafe { std::mem::uninitialized() };
+        let mut loader     = Loader::new(parameter);
+        let mut weight_i_i = [[0.0; IN ]; OUT];
+        let mut weight_i_f = [[0.0; IN ]; OUT];
+        let mut weight_i_g = [[0.0; IN ]; OUT];
+        let mut weight_i_o = [[0.0; IN ]; OUT];
+        let mut weight_h_i = [[0.0; OUT]; OUT];
+        let mut weight_h_f = [[0.0; OUT]; OUT];
+        let mut weight_h_g = [[0.0; OUT]; OUT];
+        let mut weight_h_o = [[0.0; OUT]; OUT];
+        let mut bias_i_i_  = [ 0.0      ; OUT];
+        let mut bias_i_f_  = [ 0.0      ; OUT];
+        let mut bias_i_g_  = [ 0.0      ; OUT];
+        let mut bias_i_o_  = [ 0.0      ; OUT];
+        let mut bias_h_i_  = [ 0.0      ; OUT];
+        let mut bias_h_f_  = [ 0.0      ; OUT];
+        let mut bias_h_g_  = [ 0.0      ; OUT];
+        let mut bias_h_o_  = [ 0.0      ; OUT];
 
         loader.load(&mut weight_i_i);
         loader.load(&mut weight_i_f);

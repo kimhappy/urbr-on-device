@@ -9,7 +9,7 @@ pub struct Dense<
     bias_  : [ f32     ; OUT],
 
     // Outputs
-    out_   :  [f32; OUT]     ,
+    out_   : [ f32     ; OUT],
 }
 
 impl<
@@ -18,9 +18,9 @@ impl<
 > Dense< IN, OUT > {
     pub fn new() -> Self {
         Self {
-            weight_: unsafe { std::mem::uninitialized() },
-            bias_  : unsafe { std::mem::uninitialized() },
-            out_   : unsafe { std::mem::uninitialized() },
+            weight_: [[0.0; IN]; OUT],
+            bias_  : [ 0.0     ; OUT],
+            out_   : [ 0.0     ; OUT],
         }
     }
 }
