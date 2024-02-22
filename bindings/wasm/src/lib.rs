@@ -37,25 +37,25 @@ impl UrbrFront {
 
     #[wasm_bindgen]
     pub fn inference(&mut self, a: f32, b: f32, dest: &Float32Array) {
-        // TODO: Inference
-        // let scaled = self.preprocess.transform([a, b]);
+        // for Inference
+        let scaled = self.preprocess.transform([a, b]);
 
-        // if self.prev.is_empty() {
-        //    self.prev.extend(std::iter::repeat(scaled).take(LOOK_BACK));
-        // }
-        // else {
-        //     self.prev.pop_front();
-        //     self.prev.push_back(scaled);
-        // }
+        if self.prev.is_empty() {
+           self.prev.extend(std::iter::repeat(scaled).take(LOOK_BACK));
+        }
+        else {
+            self.prev.pop_front();
+            self.prev.push_back(scaled);
+        }
 
-        // for al in &self.prev {
-        //     self.front.forward(al);
-        // }
+        for al in &self.prev {
+            self.front.forward(al);
+        }
 
-        // dest.copy_from(self.front.out());
+        dest.copy_from(self.front.out());
 
         // for test
-        dest.set_index(0, a);
-        dest.set_index(1, b);
+        // dest.set_index(0, a);
+        // dest.set_index(1, b);
     }
 }
