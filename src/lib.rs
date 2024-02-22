@@ -20,13 +20,3 @@ pub const HIDDEN: usize = 100;
 pub type Front      = LSTM  < DIM   , HIDDEN >;
 pub type Back       = Dense < HIDDEN, DIM    >;
 pub type Preprocess = Scaler< DIM            >;
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}

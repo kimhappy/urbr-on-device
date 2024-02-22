@@ -17,6 +17,8 @@ harness = false
 
 [dev-dependencies]
 divan = "0.1.14"
+tch   = { version = "^0.15.0", features = ["download-libtorch"] }
+rand  = { version = "^0.8.5" , features = ["small_rng"        ] }
 
 [dependencies]
-num-traits = "^0.2.18"
+num-traits   = "^0.2.18"
