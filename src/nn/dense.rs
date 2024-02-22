@@ -5,8 +5,8 @@ pub struct Dense<
     const OUT: usize,
 > {
     // Parameters
-    weight_: [[f32; OUT]; IN],
-    bias_  :  [f32; OUT]     ,
+    weight_: [[f32; IN]; OUT],
+    bias_  : [ f32     ; OUT],
 
     // Outputs
     out_   :  [f32; OUT]     ,
@@ -49,7 +49,7 @@ impl<
             self.out_[ i ] = self.bias_[ i ];
 
             for j in 0..IN {
-                self.out_[ i ] += input[ j ] * self.weight_[ j ][ i ];
+                self.out_[ i ] += input[ j ] * self.weight_[ i ][ j ];
             }
         }
     }
