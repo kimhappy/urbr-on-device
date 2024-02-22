@@ -38,7 +38,7 @@ impl UrbrFront {
     #[wasm_bindgen]
     pub fn inference(&mut self, a: f32, b: f32, dest: &Float32Array) {
         // for Inference
-        let scaled = self.preprocess.transform([a, b]);
+        let scaled = self.preprocess.transform(&[a, b]);
 
         if self.prev.is_empty() {
            self.prev.extend(std::iter::repeat(scaled).take(LOOK_BACK));

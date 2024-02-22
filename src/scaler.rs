@@ -6,7 +6,7 @@ pub struct Scaler< const DIM: usize > {
 }
 
 impl< const DIM: usize > Scaler< DIM > {
-    pub fn transform(&self, x: [f32; DIM]) -> [f32; DIM] {
+    pub fn transform(&self, x: &[f32; DIM]) -> [f32; DIM] {
         let mut result = [0.0; DIM];
 
         for i in 0..DIM {
@@ -17,7 +17,7 @@ impl< const DIM: usize > Scaler< DIM > {
         result
     }
 
-    pub fn inverse_transform(&self, x: [f32; DIM]) -> [f32; DIM] {
+    pub fn inverse_transform(&self, x: &[f32; DIM]) -> [f32; DIM] {
         let mut result = [0.0; DIM];
 
         for i in 0..DIM {
