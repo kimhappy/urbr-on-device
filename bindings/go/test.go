@@ -24,7 +24,7 @@ func main() {
 	// 추론 결과를 to 배열에 저장
 	C.inference(
 		(*C.float)(unsafe.Pointer(&from[ 0 ])),
-		(*C.float)(unsafe.Pointer(&to[ 0 ])))
+		(*C.float)(unsafe.Pointer(&to  [ 0 ])))
 
 	// 추론 결과 출력
 	fmt.Println(to[ 0 ], to[ 1 ])
