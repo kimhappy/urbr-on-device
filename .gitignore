@@ -1,3 +1,5 @@
+src/data.rs
+parameter_for_tch.pt
 target
 Cargo.lock
 .vscode
