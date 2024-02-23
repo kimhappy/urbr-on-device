@@ -1,8 +1,8 @@
-# URBR Federated Inference
+# 2024 HYUNDAI MOBIS HACKATHON - URBR Federated Inference
 
 ## Prerequisite
-* cargo (command depends on your platform)
-  * wasm-pack (with `cargo install wasm-pack`)
+* cargo: command depends on your platform
+  * wasm-pack: `cargo install wasm-pack`
 
 ## Get Git Submodule
 ```sh
